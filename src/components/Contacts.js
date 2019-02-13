@@ -25,9 +25,25 @@ class Contacts extends Component {
     ]
   };
 
+  onDelete = id => {
+    const { contacts } = this.state;
+
+    const newContact = contacts.filter(contact => contact.id !== id);
+
+    this.setState({
+      contacts: newContact
+    });
+  };
+
   render() {
     const { contacts } = this.state;
-    return contacts.map(contact => <Contact contact={contact} />);
+    return contacts.map(contact => (
+      <Contact
+        contact={contact}
+        key={contact.id}
+        deleteClickHandler={this.onDelete.bind(this, contact.id)}
+      />
+    ));
   }
 }
 
